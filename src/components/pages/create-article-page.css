@@ -1,0 +1,25 @@
+.add-form{
+  box-shadow: 0 0 10px rgba(165, 234, 255, 0.5);
+  border: 1px solid rgb(73, 127, 163);
+  padding: 20px 20px 30px 15px;
+  display: flex;
+  flex-direction: column;
+  width: calc(40% - 10px);
+}
+
+.form-control-title,.form-control-summary, .form-control-text {
+  margin-bottom: 30px;
+  border: 1px solid rgb(144, 191, 223);
+}
+
+.form-control-summary{
+  height: 100px;
+}
+
+.form-control-text{
+  height: 250px;
+}
+.btn-add-article{
+  width: 200px;
+  align-self: center;
+}

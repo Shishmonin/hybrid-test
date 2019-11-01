@@ -1,0 +1,37 @@
+.add-comment-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: rgb(236, 255, 255);
+  padding: 0 20px;
+  margin-top: 40px;
+}
+
+.add-comment-form p{
+  margin-top: 25px;
+}
+
+input.form-control-name{
+  margin-top: 10px;
+  /* max-width: 150px; */
+  height: 35px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(227, 242, 252);
+}
+
+textarea.form-control-comment-text{
+  margin-bottom: 20px;
+  border: 1px solid rgb(227, 242, 252);
+}
+
+.btn-add-comment{
+  width: 240px;
+  margin: 15px auto 15px;
+  max-width: 240px;
+  padding: 10px 15px;
+  background: rgb(35, 81, 112);
+
+  border-radius: 10px;
+  border: 1px solid rgb(73, 127, 163);
+  color: aliceblue;
+}

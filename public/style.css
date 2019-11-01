@@ -1,0 +1,36 @@
+#root{
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+body{
+  display: flex;
+  justify-content: center;
+}
+
+button.btn{
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: rgb(35, 81, 112);
+  border: 1px solid rgb(73, 127, 163);
+  color: aliceblue;
+}
+button{
+  max-width: 240px;
+  background: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid rgb(73, 127, 163);
+  color: rgb(35, 81, 112);
+}
+
+.modal{
+  left: 10%  !important;
+  right: 0 !important;
+  top: 10% !important;
+  height: auto !important;
+  /* bottom: 0; */
+}
+input.modal-title,.modal-summary{
+  margin-bottom: 30px;
+}
