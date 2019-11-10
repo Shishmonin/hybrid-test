@@ -62,7 +62,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
 
   case 'ADD_ARTICLE':
-    // console.log(action)
     const newArt = {
         id: state.articles.length + action.title,
         title: action.title,
@@ -79,7 +78,6 @@ const reducer = (state = initialState, action) => {
     }
 
   case 'ARTICLES_EDIT':
-    // console.log(action)
     const editeArt = {
       id: action.id,
       title: action.title,
@@ -111,7 +109,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'COMMENT_DELETE':
-    // console.log(action)
       const {id} = action.id
 
       return {
@@ -123,7 +120,6 @@ const reducer = (state = initialState, action) => {
       };
 
     case 'COMMENT_ADD':
-      // console.log(action);
       const findArt =state.articles.find(user => (user.id === action.id)).comments.push({
         id: action.id+action.name,
         name: action.name,

@@ -46,10 +46,31 @@ const commentAdd = (idArticl, name, comment) => {
   };
 };
 
+const getFilters = (filters) => {
+      // console.log(filters);
+  console.log(Object.keys(filters).length);
+  // if (Object.keys(filters) == null) {
+  //   console.log('пуст');
+  // }
+  if((filters.status || 
+    filters.data_create_from || 
+    filters.data_create_to || 
+    filters.delivery_from || 
+    filters.delivery_to) !== null){
+    console.log(filters);
+  }else{
+    console.log('пуст');
+  }
+  return {
+    type: 'GET_FILTERS',
+  };
+};
+
 export {
   commentAdd,
   commentDelete,
   articleAdd,
   articleEdit,
-  articleDelete
+  articleDelete,
+  getFilters
 };

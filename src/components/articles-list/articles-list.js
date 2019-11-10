@@ -1,31 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ArticlesListPrevItem from '../articles-list-prev-item';
-import { connect } from 'react-redux';
+import { getFilters } from '../../actions';
+import { useDispatch } from 'react-redux'
 
+import { connect } from 'react-redux';
+import { Select } from 'antd';
+import { DatePicker } from 'antd';
+
+import 'antd/dist/antd.css';
 import './articles-list.css';
 
 const ArticlesListContainer = ({articles}) => {
+  const { Option } = Select;
+  const { RangePicker} = DatePicker;
+  const dispatch = useDispatch();
+  const [filters, setFilters] =
+        useState({
+                  status: null,
+                  data_create_from: null,
+                  data_create_to: null,
+                  data_delivery_from: null,
+                  data_delivery_to: null,
+  });
+
 
   const [posts, setPosts] = useState(articles);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(4);
-  console.log(setPostsPerPage);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  // console.log(currentPosts)
 
+  const mounted = useRef();
   useEffect(() => {
+    dispatch(getFilters(filters));
     setPosts(articles);
-  })
+    if (!mounted.current) {
+      mounted.current = true;
+    } else {
+      dispatch(getFilters(filters));
+    }
+  },[filters,articles]);
+
+  function onChangeStatus(value) {
+    setFilters({...filters, status: value});
+  };
+
+  function onChangeCreate(date, dateString) {
+    setFilters({...filters,
+                data_create_from: dateString[0],
+                data_create_to: dateString[1],
+    });
+  };
+
+  function onChangeDelivery(date, dateString) {
+    setFilters({...filters,
+      data_delivery_from: dateString[0],
+      data_delivery_to: dateString[1],
+    });
+  };
 
   return(
-    <div className="article-list-wraper">
-      <ArticlesList currentPosts={currentPosts}/>
-      <Pagination postsPerPage={postsPerPage}
-                  totalPosts={posts.length}
-                  setCurrentPage={setCurrentPage}
-      />
+    <div>
+      <div>
+          <Select
+            style={{ width: 100 }}
+            placeholder="Статус"
+            optionFilterProp="children"
+            onChange={onChangeStatus}>
+              <Option value="created">Создан</Option>
+              <Option value="added">Добавлен</Option>
+              <Option value="photo">Фотография продукта</Option>
+          </Select>
+          <RangePicker  onChange={onChangeCreate}/>
+          <RangePicker  onChange={onChangeDelivery}/>
+
+      </div>
+      <div className="article-list-wraper">
+        <ArticlesList currentPosts={currentPosts}/>
+        <Pagination postsPerPage={postsPerPage}
+                    totalPosts={posts.length}
+                    setCurrentPage={setCurrentPage}/>
+      </div>
     </div>
   )
 }
