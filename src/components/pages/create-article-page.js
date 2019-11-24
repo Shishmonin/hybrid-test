@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { articleAdd } from '../../actions';
 import store from '../../store';
@@ -14,32 +14,52 @@ class CreateArticle extends React.Component {
       title: '',
       summary: '',
       text: '',
+      flag: false
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTitleChangeTitle = this.handleTitleChangeTitle.bind(this);
     this.handleTitleChangeSummary = this.handleTitleChangeSummary.bind(this);
     this.handleTitleChangeText = this.handleTitleChangeText.bind(this);
+    this.handleButton = this.handleButton.bind(this);
 
   }
+
   handleSubmit(e) {
     e.preventDefault();
     store.dispatch(articleAdd(this.state.title,this.state.summary,this.state.text));
     this.setState({
       title: '',
       summary: '',
-      text: ''
+      text: '',
+      flag: false
     })
   }
 
   handleTitleChangeTitle(event) {
-    this.setState({title: event.target.value})
+    const regTest = new RegExp('^[a-zA-Z0-9]+$');
+    if(!regTest.test(event.target.value)){
+      alert('Только латинские буквы!ы');
+      this.setState({title: ''});
+    }else{
+      this.setState({title: event.target.value});
+    }
+    this.handleButton();
   }
   handleTitleChangeSummary(event) {
-    this.setState({summary: event.target.value})
+    this.setState({summary: event.target.value});
+    this.handleButton();
   }
   handleTitleChangeText(event) {
-    this.setState({text: event.target.value})
+    this.setState({text: event.target.value});
+    this.handleButton();
+  }
+
+  handleButton() {
+    console.log('Actives');
+    if( !this.state.title ,!this.state.summary ,!this.state.text === ''){
+      this.setState({flag: true})
+    }
   }
 
   render(){
@@ -73,7 +93,7 @@ class CreateArticle extends React.Component {
 
         <button
         className="btn btn-add-article" >
-          Добавить
+          {this.state.flag === false ? 'Заполните все поля' : 'Добавить'}
         </button>
       </form>
     );
